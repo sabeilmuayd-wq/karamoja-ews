@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="text-center text-white mb-4">
+    <h1>🌍 نظام الإنذار المبكر لكاراموجا</h1>
+    <p class="lead">مراقبة وتوزيع المساعدات الغذائية</p>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header"><h5>📊 ملخص</h5></div>
+    <div class="card-body text-center">
+        <div class="row">
+            <div class="col-3"><h3>{{ villages|length }}</h3><p>قرية</p></div>
+            <div class="col-3"><h3>{{ villages|sum(attribute='population') }}</h3><p>نسمة</p></div>
+            <div class="col-3"><h3>{{ villages|selectattr('risk.level', 'equalto', 'طوارئ')|list|length }}</h3><p>طوارئ</p></div>
+            <div class="col-3"><h3>{{ villages|selectattr('risk.level', 'equalto', 'أزمة')|list|length }}</h3><p>أزمة</p></div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    {% for v in villages %}
+    <div class="col-md-6 mb-3">
+        <div class="card risk-{{ v.risk.color }}">
+            <div class="card-header"><h5>{{ v.name }}</h5></div>
+            <div class="card-body">
+                <p><strong>السكان:</strong> {{ v.population }}</p>
+                <p><strong>المخزون:</strong> {{ v.food_stock_kg }} كجم</p>
+                <p><strong>أيام الجفاف:</strong> {{ v.days_since_rain }}</p>
+                <p><strong>مؤشر الخطر:</strong> {{ v.risk.risk_score }} ({{ v.risk.level }})</p>
+                <div class="progress">
+                    <div class="progress-bar bg-{{ v.risk.color }}" style="width: {{ v.risk.risk_score }}%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
