@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header"><h4>📦 توزيع المساعدات</h4></div>
+            <div class="card-body">
+                {% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+                {% if result %}
+                <div class="alert alert-success">
+                    ✅ تم توزيع {{ "%.0f"|format(result.total_distributed) }} كجم
+                </div>
+                <table class="table">
+                    <thead><tr><th>القرية</th><th>الكمية</th><th>النوع</th></tr></thead>
+                    <tbody>
+                        {% for d in result.distributions %}
+                        <tr>
+                            <td>{{ d.village_name }}</td>
+                            <td>{{ "%.0f"|format(d.amount) }}</td>
+                            <td>{{ d.type }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <form method="POST">
+                    <div class="mb-3">
+                        <label>إجمالي المساعدات (كجم)</label>
+                        <input type="number" name="total_aid" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>الحد الأدنى للكرامة (كجم/شخص)</label>
+                        <input type="number" name="min_per_person" class="form-control" step="0.1" value="0.5">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">توزيع</button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
