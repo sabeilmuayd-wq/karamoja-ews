@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+    <div class="card-header"><h4>📋 سجل التوزيعات</h4></div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead><tr><th>#</th><th>القرية</th><th>الكمية</th><th>التاريخ</th></tr></thead>
+            <tbody>
+                {% for d in distributions %}
+                <tr>
+                    <td>{{ d[0] }}</td>
+                    <td>{{ d[1] }}</td>
+                    <td>{{ "%.0f"|format(d[2]) }} كجم</td>
+                    <td>{{ d[4] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
