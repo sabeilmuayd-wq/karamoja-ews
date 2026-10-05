@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header"><h4>➕ إضافة قرية</h4></div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label>اسم القرية</label>
+                        <input type="text" name="name" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>المنطقة</label>
+                        <input type="text" name="district" class="form-control" value="كاراموجا" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>عدد السكان</label>
+                        <input type="number" name="population" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>المخزون (كجم)</label>
+                        <input type="number" name="food_stock" class="form-control" step="0.1" value="0">
+                    </div>
+                    <div class="mb-3">
+                        <label>أيام الجفاف</label>
+                        <input type="number" name="days_rain" class="form-control" value="0">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">إضافة</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
